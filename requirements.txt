@@ -1,0 +1,5 @@
+customtkinter
+wmi
+psutil
+pywin32
+requests

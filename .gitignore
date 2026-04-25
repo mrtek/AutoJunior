@@ -1,0 +1,24 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.venv/
+venv/
+ENV/
+
+# Project specific (AutoJunior)
+/OllamaModels/
+/venv/
+*.bat
+*.log
+
+# Windows specifics
+Thumbs.db
+desktop.ini
+
+# Installer builds
+dist/
+build/
+*.spec
