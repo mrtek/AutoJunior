@@ -45,7 +45,7 @@ TEXTS = {
         "err_api": "Ollama API не отвечает. Возможно, программа не установлена или порт заблокирован.",
         "err_pull": "Ошибка скачивания модели: {}",
         "msg_success": "УСПЕХ! AutoJunior готов к работе (Модель: {}).",
-        "msg_done": "Развертывание завершено успешно!",
+        "msg_done": "Развертывание завершено успешно! Доступны команды: aid и aaid.",
         "log_check": "Проверка {}...",
         "log_install": "Установка {}...",
         "log_ready": "{} уже готов.",
@@ -113,7 +113,7 @@ TEXTS = {
         "err_api": "Ollama API is not responding. It might not be installed correctly or the port is blocked.",
         "err_pull": "Model download error: {}",
         "msg_success": "SUCCESS! AutoJunior is ready (Model: {}).",
-        "msg_done": "Deployment completed successfully!",
+        "msg_done": "Deployment completed! Commands available: aid and aaid.",
         "log_check": "Checking {}...",
         "log_install": "Installing {}...",
         "log_ready": "{} is already prepared.",
@@ -269,7 +269,7 @@ class AutoJunior(ctk.CTk):
         super().__init__()
 
         self.lang = "ru"
-        self.title("AutoJunior")
+        self.title("AutoJunior v1.0.1")
         self.center_window(self, 750, 780) 
         self.resizable(False, False)
         
@@ -912,8 +912,14 @@ class AutoJunior(ctk.CTk):
             
             self.pull_model(target, 0.4, 0.95)
 
-            bat = os.path.join(base, "aid.bat")
-            with open(bat, "w", encoding="utf-8") as f:
+            # Create aid.bat (Normal Mode) / Создание лаунчера aid.bat (Обычный режим)
+            bat_normal = os.path.join(base, "aid.bat")
+            with open(bat_normal, "w", encoding="utf-8") as f:
+                f.write(f"@echo off\nset OLLAMA_NUM_CTX=32768\ncd /d \"%~dp0\"\nif not exist \".git\" git init\n\"%~dp0\\venv\\Scripts\\aider\" --model ollama/{target}\n")
+
+            # Create aaid.bat (Architect Mode) / Создание лаунчера aaid.bat (Режим архитектора)
+            bat_arch = os.path.join(base, "aaid.bat")
+            with open(bat_arch, "w", encoding="utf-8") as f:
                 f.write(f"@echo off\nset OLLAMA_NUM_CTX=32768\ncd /d \"%~dp0\"\nif not exist \".git\" git init\n\"%~dp0\\venv\\Scripts\\aider\" --model ollama/{target} --edit-format architect\n")
             
             ps_path = f'$old = [Environment]::GetEnvironmentVariable("Path", "User"); if ($old -notlike "*{base}*") {{ [Environment]::SetEnvironmentVariable("Path", "$old;{base}", "User") }}'
