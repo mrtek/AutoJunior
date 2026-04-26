@@ -25,7 +25,7 @@
 ## 📥 Installation & Usage
 
 ### Method 1: Compiled EXE (Recommended)
-1. Download the latest `AutoJunior_v1.0.0.exe`.
+1. Download the latest `AutoJunior_v1.0.1.exe`.
 2. Run the file (it will automatically request Administrator privileges).
 3. Select a recommended model or use the Online Catalog.
 4. Click **"DEPLOY ENVIRONMENT"**.
