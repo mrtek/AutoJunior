@@ -1,4 +1,4 @@
-# 🚀 AutoJunior v1.0.0
+# 🚀 AutoJunior
 
 **AutoJunior** is an intelligent automated environment deployer and configurator for local AI-assisted development. With a single click, it sets up the **Ollama + Aider** stack, configures system environment variables, and selects the optimal models based on your hardware specifications.
 
