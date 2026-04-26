@@ -915,12 +915,12 @@ class AutoJunior(ctk.CTk):
             # Create aid.bat (Normal Mode) / Создание лаунчера aid.bat (Обычный режим)
             bat_normal = os.path.join(base, "aid.bat")
             with open(bat_normal, "w", encoding="utf-8") as f:
-                f.write(f"@echo off\nset OLLAMA_NUM_CTX=32768\ncd /d \"%~dp0\"\nif not exist \".git\" git init\n\"%~dp0\\venv\\Scripts\\aider\" --model ollama/{target}\n")
+                f.write(f"@echo off\nset OLLAMA_NUM_CTX=32768\nif not exist \".git\" git init\n\"{base}\\venv\\Scripts\\aider\" --model ollama/{target}\n")
 
             # Create aaid.bat (Architect Mode) / Создание лаунчера aaid.bat (Режим архитектора)
             bat_arch = os.path.join(base, "aaid.bat")
             with open(bat_arch, "w", encoding="utf-8") as f:
-                f.write(f"@echo off\nset OLLAMA_NUM_CTX=32768\ncd /d \"%~dp0\"\nif not exist \".git\" git init\n\"%~dp0\\venv\\Scripts\\aider\" --model ollama/{target} --edit-format architect\n")
+                f.write(f"@echo off\nset OLLAMA_NUM_CTX=32768\nif not exist \".git\" git init\n\"{base}\\venv\\Scripts\\aider\" --model ollama/{target} --edit-format architect\n")
             
             ps_path = f'$old = [Environment]::GetEnvironmentVariable("Path", "User"); if ($old -notlike "*{base}*") {{ [Environment]::SetEnvironmentVariable("Path", "$old;{base}", "User") }}'
             subprocess.run(["powershell", "-Command", ps_path], creationflags=subprocess.CREATE_NO_WINDOW)
@@ -1009,6 +1009,8 @@ class AutoJunior(ctk.CTk):
 
             if targets["venv"]:
                 self.run_command(f"rmdir /s /q \"{os.path.join(base, 'venv')}\"")
+                self.run_command(f"del /f /q \"{os.path.join(base, 'aid.bat')}\"", silent=True)
+                self.run_command(f"del /f /q \"{os.path.join(base, 'aaid.bat')}\"", silent=True)
             if targets["models"]:
                 self.run_command(f"rmdir /s /q \"{os.path.join(base, 'OllamaModels')}\"")
             if targets["env"]:
